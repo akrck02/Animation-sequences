@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rain</title>
+</head>
+<style>
+    body {
+        background: #202020;
+        color : #fafafa;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img {
+        width: 10rem;
+        height: 10rem;
+    }
+
+    loader {
+        display: flex;
+        position: absolute;
+        bottom: 0rem;
+        left: 0;
+        min-width: 100%;
+        height: 100%;
+    }
+
+    loader item {
+        background: white;
+        width: .5rem;
+        margin-right: .25rem; 
+        height: 4rem;
+        border-radius: .15rem .15rem 0 0;
+        display: block;
+        transition: top .5s, opacity .5s;
+        top: 0;
+        opacity: 0;
+        position: fixed;
+        border-radius: .35rem;
+    }
+
+</style>
+<script>
+
+    window.onload = () => {
+
+        const loader = document.querySelector('loader')
+
+        for (let i = 0; i < 30; i++) {
+
+            let x = Math.random() * 100;
+           let y = -10;
+
+           generateDrop(loader,x,y)
+        }
+    
+        
+    
+    }
+
+
+    function generateDrop(loader,x, y) {
+        const drop = document.createElement('item')
+        drop.style.left = x + '%'
+        drop.style.top = y + '%'
+        loader?.appendChild(drop)
+
+        const duration = 1 + Math.random() * 20;
+        drop.style.transition =   "top .5s, opacity" + duration + 's'
+
+        setTimeout(() => {
+            drop.style.opacity = 1 * Math.random()
+        }, 100)
+
+        setTimeout(() => {
+            drop.style.top = '100%'
+        }, 100 * duration)
+
+        setTimeout(() => {
+            generateDrop(loader,x,y)
+        }, 100 * duration + 100)
+    }
+</script>
+<body>
+    <loader>
+    </loader>
+</body>
+</html>
